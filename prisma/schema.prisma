@@ -1,0 +1,221 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL") // Assure-toi que cette URL est correcte pour MySQL
+}
+
+enum Role {
+  HABITANT
+  MEMBRE
+  ASSOCIATION
+}
+
+model User {
+  id                    Int       @id @default(autoincrement())
+  email                 String    @unique
+  password              String // Stocké en hashé avec Argon2
+  firstName             String?
+  lastName              String?
+  role                  Role      @default(HABITANT)
+  refreshToken          String?
+  refreshTokenExpiresAt DateTime?
+
+  // Relations
+  associations     Adhesion[]
+  publications     Publication[]
+  comments         Comment[]
+  votes            Vote[]
+  messagesSent     Message[]     @relation("SentMessages")
+  messagesReceived Message[]     @relation("ReceivedMessages")
+  userAgendas      UserAgenda[] // Relation vers UserAgenda
+  createdEvents    Event[]       @relation("EventCreator")
+  events           Event[]       @relation("UserEvents")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Association {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String?
+  city        String
+  category    String
+  latitude    Float?
+  longitude   Float?
+
+  // Relations
+  members            Adhesion[]
+  events             Event[]
+  publications       Publication[]
+  polls              Sondage[]
+  messages           Message[]
+  associationAgendas AssociationAgenda[] // Relation vers AssociationAgenda
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Publication {
+  id            Int    @id @default(autoincrement())
+  content       String
+  userId        Int?
+  associationId Int?
+
+  // Relations
+  user        User?        @relation(fields: [userId], references: [id])
+  association Association? @relation(fields: [associationId], references: [id])
+  comments    Comment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Sondage {
+  id            Int    @id @default(autoincrement())
+  question      String
+  associationId Int
+
+  // Relations
+  association Association @relation(fields: [associationId], references: [id])
+  votes       Vote[]
+  options     Option[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Option {
+  id         Int    @id @default(autoincrement())
+  optionName String
+  sondageId  Int
+
+  // Relations
+  sondage Sondage @relation(fields: [sondageId], references: [id])
+}
+
+model Adhesion {
+  id            Int    @id @default(autoincrement())
+  userId        Int
+  associationId Int
+  status        String
+
+  // Relations
+  user        User        @relation(fields: [userId], references: [id])
+  association Association @relation(fields: [associationId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, associationId]) // Un utilisateur ne peut adhérer qu'une fois par association
+}
+
+model UserAgenda {
+  id     Int @id @default(autoincrement())
+  userId Int
+
+  // Relations
+  user   User    @relation(fields: [userId], references: [id])
+  events Event[] @relation("UserAgendaEvents") // Nom explicite pour la relation
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AssociationAgenda {
+  id            Int @id @default(autoincrement())
+  associationId Int
+
+  // Relations
+  association Association @relation(fields: [associationId], references: [id])
+  events      Event[]     @relation("AssociationAgendaEvents") // Nom explicite pour la relation
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Event {
+  id           Int      @id @default(autoincrement())
+  title        String
+  description  String
+  date         DateTime
+  location     String
+  latitude     Float?
+  longitude    Float?
+  isPublic     Boolean  @default(true)
+  maxAttendees Int?
+  status       String   @default("PLANNED")
+
+  // Relations
+  associationId Int?
+  agendaId      Int?
+  userId        Int?
+
+  association Association? @relation(fields: [associationId], references: [id])
+  creator     User?        @relation("EventCreator", fields: [userId], references: [id], map: "EventCreator")
+  user        User?        @relation("UserEvents", fields: [userId], references: [id], map: "EventUser")
+
+  userAgendaId Int?
+  userAgenda   UserAgenda? @relation("UserAgendaEvents", fields: [userAgendaId], references: [id])
+
+  associationAgendaId Int?
+  associationAgenda   AssociationAgenda? @relation("AssociationAgendaEvents", fields: [associationAgendaId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id            Int    @id @default(autoincrement())
+  content       String
+  senderId      Int
+  receiverId    Int
+  associationId Int?
+
+  // Relations
+  sender      User         @relation("SentMessages", fields: [senderId], references: [id])
+  receiver    User         @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  association Association? @relation(fields: [associationId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Comment {
+  id            Int    @id @default(autoincrement())
+  content       String
+  userId        Int
+  publicationId Int
+
+  // Relations
+  user        User        @relation(fields: [userId], references: [id])
+  publication Publication @relation(fields: [publicationId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Vote {
+  id          Int @id @default(autoincrement())
+  userId      Int
+  sondageId   Int
+  optionIndex Int
+
+  // Relations
+  user    User    @relation(fields: [userId], references: [id])
+  sondage Sondage @relation(fields: [sondageId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, sondageId]) // Un utilisateur ne peut voter qu'une fois par sondage
+}

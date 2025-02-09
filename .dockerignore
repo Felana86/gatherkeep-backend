@@ -1,0 +1,21 @@
+# Ignorer les dossiers de build
+node_modules
+target/
+build/
+
+# Ignorer les fichiers de configuration d'IDE
+.idea/
+.vscode/
+*.iml
+
+# Ignorer le contrôle de version
+.git
+.gitignore
+
+# Ignorer les fichiers de configuration locaux
+.env
+
+# Ignorer les fichiers temporaires
+*.log
+.DS_Store
+*.swp

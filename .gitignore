@@ -1,0 +1,7 @@
+# Ignorer le fichier .env à la racine
+.env
+**/.env
+**/.env.*
+
+# Ignorer le fichier de config docker-compose
+*.yml

@@ -1,4 +1,4 @@
-import { MessageEntity } from '../domain/entities/message.entity';
+import { MessageEntity } from '../entities/message.entity';
 
 export interface MessageRepository {
   findById(id: number): Promise<MessageEntity | null>;

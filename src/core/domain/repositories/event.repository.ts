@@ -1,4 +1,4 @@
-import { EventEntity } from '../domain/entities/event.entity';
+import { EventEntity } from '../entities/event.entity';
 
 export interface EventRepository {
   findById(id: number): Promise<EventEntity | null>;

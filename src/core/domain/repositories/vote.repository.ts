@@ -1,4 +1,4 @@
-import { VoteEntity } from '../domain/entities/vote.entity';
+import { VoteEntity } from '../entities/vote.entity';
 
 export interface VoteRepository {
   findById(id: number): Promise<VoteEntity | null>;

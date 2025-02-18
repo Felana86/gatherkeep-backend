@@ -1,4 +1,4 @@
-import { OptionEntity } from '../domain/entities/option.entity';
+import { OptionEntity } from '../entities/option.entity';
 
 export interface OptionRepository {
   findById(id: number): Promise<OptionEntity | null>;

@@ -1,4 +1,4 @@
-import { PublicationEntity } from '../domain/entities/publication.entity';
+import { PublicationEntity } from '../entities/publication.entity';
 
 export interface PublicationRepository {
   findById(id: number): Promise<PublicationEntity | null>;

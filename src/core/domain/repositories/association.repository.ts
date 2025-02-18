@@ -1,4 +1,4 @@
-import { AssociationEntity } from '../domain/entities/association.entity';
+import { AssociationEntity } from '../entities/association.entity';
 
 export interface AssociationRepository {
   findById(id: number): Promise<AssociationEntity>;

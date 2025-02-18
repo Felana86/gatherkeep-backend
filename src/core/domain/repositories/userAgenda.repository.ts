@@ -1,4 +1,4 @@
-import { UserAgendaEntity } from '../domain/entities/userAgenda.entity';
+import { UserAgendaEntity } from '../entities/userAgenda.entity';
 
 export interface UserAgendaRepository {
   findById(id: number): Promise<UserAgendaEntity | null>;

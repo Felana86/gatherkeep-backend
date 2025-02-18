@@ -1,4 +1,4 @@
-import { SondageEntity } from '../domain/entities/sondage.entity';
+import { SondageEntity } from '../entities/sondage.entity';
 
 export interface SondageRepository {
   findById(id: number): Promise<SondageEntity>;

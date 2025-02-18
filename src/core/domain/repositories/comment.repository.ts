@@ -1,4 +1,4 @@
-import { CommentEntity } from '../domain/entities/comment.entity';
+import { CommentEntity } from '../entities/comment.entity';
 
 export interface CommentRepository {
   findById(id: number): Promise<CommentEntity | null>;

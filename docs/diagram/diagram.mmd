@@ -1,0 +1,37 @@
+sequenceDiagram
+    participant Visiteur
+    participant Système
+    participant BaseDeDonnées
+    participant ServiceEmail
+
+    Visiteur ->> Système: Saisie email et mot de passe
+    Système ->> BaseDeDonnées: Vérification de l'email
+    BaseDeDonnées -->> Système: Réponse
+    Système ->> Système: Création du compte (rôle HABITANT)
+    Système ->> Système: Stockage sécurisé du mot de passe (Argon2)
+    Système ->> ServiceEmail: Envoi email de confirmation
+
+    participant Utilisateur
+
+    Utilisateur ->> Système: Connexion avec identifiants
+    Système ->> BaseDeDonnées: Vérification des identifiants
+    BaseDeDonnées -->> Système: Réponse
+    Système -->> Utilisateur: Token de session généré
+    Système -->> Utilisateur: Token de rafraîchissement généré
+
+    Utilisateur ->> Système: Création d'une association
+    Système ->> BaseDeDonnées: Sauvegarde des informations de l'association
+    BaseDeDonnées -->> Système: Confirmation de création
+    Système -->> Utilisateur: Association créée
+
+    Utilisateur ->> Système: Publie un message
+    Système ->> BaseDeDonnées: Stockage du message
+    BaseDeDonnées -->> Système: Confirmation
+
+    Utilisateur ->> Système: Vote pour un sondage
+    Système ->> BaseDeDonnées: Enregistrement du vote
+    BaseDeDonnées -->> Système: Confirmation
+
+    Utilisateur ->> Système: Inscription à un événement
+    Système ->> BaseDeDonnées: Ajout à l'agenda personnel
+    BaseDeDonnées -->> Système: Confirmation

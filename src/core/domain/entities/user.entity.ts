@@ -1,6 +1,6 @@
 import { Role } from './role.enum'
 
-export class User {
+export class UserEntity {
   constructor(
     public readonly id: number,
     public email: string,

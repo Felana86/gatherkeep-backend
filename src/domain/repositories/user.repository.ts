@@ -7,5 +7,5 @@ export abstract class UserRepository {
   abstract create(user: UserEntity): Promise<UserEntity>;
   abstract update(id: number, user: UserEntity): Promise<UserEntity>;
   abstract delete(id: number): Promise<void>;
-  abstract updateRefreshToken(id: number, token: string): Promise<void>;
+  abstract updateRefreshToken(id: number, refreshToken: string, expiresAt: Date): Promise<void>;
 }

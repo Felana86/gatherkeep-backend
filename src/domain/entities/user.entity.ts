@@ -1,6 +1,7 @@
 import { Role } from './role.enum'
 
 export class UserEntity {
+
   constructor(
     public readonly id: number,
     public email: string,
@@ -10,7 +11,5 @@ export class UserEntity {
     public role: Role = Role.HABITANT,
     public refreshToken?: string,
     public refreshTokenExpiresAt?: Date,
-    public createdAt: Date = new Date(),
-    public updatedAt: Date = new Date(),
   ) {}
 }

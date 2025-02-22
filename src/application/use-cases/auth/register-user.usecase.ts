@@ -1,12 +1,13 @@
 import { UserRepository } from '../../../domain/repositories/user.repository';
-import { CreateUserDto } from '../../dtos/create-user.dto';
+
 import * as bcrypt from 'bcrypt';
 import { UserEntity } from '../../../domain/entities/user.entity';
+import { CreateUserDto } from '../../dtos/auth/create-user.dto';
 
 export class RegisterUserUseCase {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async register(dto: CreateUserDto): Promise<UserEntity | null> {
+  async execute(dto: CreateUserDto) {
     if (dto.password !== dto.confirmPassword) {
       throw new Error("Les mots depasse ne sont pas identiques");
     }

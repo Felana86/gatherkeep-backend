@@ -5,7 +5,7 @@ export class JwtService {
   private readonly refreshSecret = process.env.JWT_REFRESH_SECRET || "secret";
 
   async generateAccessToken(user: { id: number; email: string; role: string }) {
-    const payload = { userId: user.id, email: user.email };
+    const payload = { sub: {userId: user.id}, email: user.email };
     return jwt.sign(
       payload,
       this.accessSecret,

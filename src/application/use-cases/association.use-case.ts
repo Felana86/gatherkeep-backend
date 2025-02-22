@@ -1,6 +1,6 @@
-import { AssociationRepository } from '../../domain/repositories/association.repository';
-import { AdhesionRepository } from '../../domain/repositories/adhesion.repsitory';
-import { UserRepository } from '../../domain/repositories/user.repository';
+import { AssociationRepository } from '../../domain/repositoriesDomain/association.repository';
+import { AdhesionRepository } from '../../domain/repositoriesDomain/adhesion.repsitory';
+import { UserRepository } from '../../domain/repositoriesDomain/user.repository';
 import { AssociationEntity } from '../../domain/entities/association.entity';
 import { AdhesionEntity } from '../../domain/entities/adhesion.entity';
 import { BadRequestException, ConflictException, HttpStatus } from '@nestjs/common';

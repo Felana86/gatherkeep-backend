@@ -1,8 +1,6 @@
 import { UserRepositoryDomain } from '../../../domain/repositoriesDomain/user.repository';
-
 import * as bcrypt from 'bcrypt';
 import { UserEntity } from '../../../domain/entities/user.entity';
-import { CreateUserDto } from '../../dtos/auth/create-user.dto';
 
 export class RegisterUserUseCase {
   constructor(private readonly userRepositoryDomain: UserRepositoryDomain) {}

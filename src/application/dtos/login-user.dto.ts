@@ -1,8 +1,6 @@
-
-export class CreateUserDto {
+export class LoginUserDto {
   constructor(
     public readonly email: string,
     public readonly password: string,
-    public readonly confirmPassword: string,
   ) {}
 }

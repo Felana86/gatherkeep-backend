@@ -1,6 +1,6 @@
 import { Role } from '../../domain/entities/role.enum';
 
-export class CreateUserDto {
+export class RegisterRequestDto {
     email: string;
     password: string;
     confirmPassword: string;

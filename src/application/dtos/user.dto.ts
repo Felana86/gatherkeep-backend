@@ -6,6 +6,8 @@ export class UserDto {
   firstName?: string;
   lastName?: string;
   role: Role;
+  refreshToken?: string;
+  refreshTokenExpiresAt?: Date;
   createdAt: Date;
   updatedAt: Date;
 }

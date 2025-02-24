@@ -1,9 +1,7 @@
-import { UserRepositoryDomain } from '../../../domain/repositoriesDomain/user.repository';
-
+import { UserRepositoryDomain } from '../../../domain/repositories/user.repository';
 import * as bcrypt from 'bcrypt';
-
-import { LoginUserDto } from '../../dtos/auth/login-user.dto';
 import { JwtService } from '../../../infrastructure/services/jwt.service';
+import { LoginUserDto } from '../../dtos/login-user.dto';
 
 
 export class LoginUserUseCase {

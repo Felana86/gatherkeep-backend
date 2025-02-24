@@ -13,7 +13,7 @@ Ce qu'on y trouve :
 controllers/ : Contrôleurs NestJS qui reçoivent les requêtes et appellent les Use Cases.
 Exemple : auth.controller.ts
 dto/ : Objets de transfert de données pour la communication API.
-Exemple : login-user.dto.ts, register-user.dto.ts
+Exemple : login-request.dto.ts, register-user.dto.ts
 exceptions/ : Gestion des erreurs spécifiques à l’interface utilisateur.
 Exemple : http-exception.filter.ts
 http/ : Configuration de l’API REST si nécessaire.

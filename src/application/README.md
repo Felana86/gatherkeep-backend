@@ -5,7 +5,9 @@ Ce dossier contient les cas d'utilisation et les DTOs.
 
 # LA COUCHE APPLICATION (Logique métier et Use Cases)
 ## Son rôle : 
-Il orchestre la logique métier via les Use Cases, qui sont des scénarios concrets comme "Créer un utilisateur", "Authentifier un utilisateur"...
+- Il orchestre la logique métier via les Use Cases, qui sont des scénarios 
+concrets comme "Créer un utilisateur", "Authentifier un utilisateur"...
+- Cette couche sert à gérer la logique métier et transporter les données entre les différentes couches.
 
 ## Ce qu'on y trouve :
 

@@ -1,13 +1,20 @@
-import { Role } from '../../domain/entities/role.enum';
+export class RegisterUserDto {
+  email: string;
+  password: string;
+  firstName?: string;
+  lastName?: string;
+}
 
-export class UserDto {
+export class LoginUserDto {
+  email: string;
+  password: string;
+}
+
+
+// Format de sortie pour éviter d'exposer les données sensibles
+export class UserResponseDto {
   id: number;
   email: string;
   firstName?: string;
   lastName?: string;
-  role: Role;
-  refreshToken?: string;
-  refreshTokenExpiresAt?: Date;
-  createdAt: Date;
-  updatedAt: Date;
 }

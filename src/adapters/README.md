@@ -1,11 +1,19 @@
+# La couche adapters
+- C'est le point d'entrée des requètes HTTP
+- Elle contient :
+    - Les "controllers" -> gèrent les routes HTTP et les requètes utilisateurs.
+    - Les "DTOs" -> valident et normalisent les données entrantes.
+    - Les "exceptions" -> interceptent les erreurs et les renvoinet en réponse HTTP.
+    - Les "HTTP clients" -> pour appler des API externes si besoin (ex: swagger).
+
 Ce dossier contient les controllers NestJS, qui recoivent les requètes HTTP 
 et appellent les use cases.
 
-# POURQUOI?
+## POURQUOI?
 Le controller ne fait que recevoir et renvoyer les données
 Toute la logique métier est déléguée aux use-cases du core
 
-# ADAPTERS : (Couches d'entrée/sortie)
+## ADAPTERS : (Couches d'entrée/sortie)
 Son rôle : Il connecte l’application au monde extérieur. Il convertit les requêtes HTTP, WebSocket, CLI... en appels aux Use Cases.
 
 Ce qu'on y trouve :

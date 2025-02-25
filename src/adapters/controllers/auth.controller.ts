@@ -1,21 +1,32 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { RegisterRequestDto } from '../dtos/register-request.dto';
-import { AuthService } from '../../application/services/auth.service';
-import { LoginRequestDto } from '../dtos/login-request.dto';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { UserService } from '../../application/services/user.service';
+import { AuthenticationUseCase } from '../../application/use-cases/authentication.use-case';
+import { LoginUserDto, RegisterUserDto, UserResponseDto } from '../../application/dtos/user.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { UserEntity } from '../../domain/entities/user.entity';
+import { UserUseCases } from '../../application/use-cases/user.use-case';
 
-@Controller('auth')
-export class AuthController {
+@Controller('users')
+export class UserController {
   constructor(
-    private readonly authService: AuthService
+    private readonly userService: UserService,
+    private readonly authUseCase: AuthenticationUseCase,
+    private readonly userUseCase: UserUseCases
   ) {}
 
-  @Post()
-  async register(@Body() dto: RegisterRequestDto) {
-    return this.authService.registerUser(dto);
+  @Post('register')
+  async register(@Body() dto: RegisterUserDto): Promise<UserResponseDto> {
+    return this.authUseCase.register(dto);
   }
 
-  @Post()
-  async login(@Body() dto: LoginRequestDto) {
-    return this.authService.loginUser(dto.email, dto.password);
+  @Post('login')
+  async login(@Body() dto: LoginUserDto): Promise<{ accessToken: string; refreshToken: string }> {
+    return this.authUseCase.login(dto);
+  }
+
+  @Get(':id')
+  @UseGuards(AuthGuard)
+  async getUserById(@Param('id') id: number): Promise<UserEntity | null> {
+    return this.userUseCase.findUserById(id)
   }
 }

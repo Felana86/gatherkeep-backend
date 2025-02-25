@@ -17,7 +17,7 @@ pour appeler les uses cases de "core/application/use-cases/"
 - Respecte l'architecture hexagonale (l'API est juste un adaptateur).
 - adapters: contient les interactions entre le domain et les outils externes.
 - persistence : spécifie que cet adapter est dédié à la persistence des donénes avec une base de données
-- Le nommage important: "prisma-user.repository.ts" montre que c'est l'implémentation Prisma du repository user.
+- Le nommage important: "user-repository.prisma.ts" montre que c'est l'implémentation Prisma du repository user.
 
 # COMMENT CA FONCTIONNE?
 1. Le client envoie une requète HTTP à NestJS

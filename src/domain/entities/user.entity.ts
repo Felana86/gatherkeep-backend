@@ -8,7 +8,7 @@ export class UserEntity {
     public firstName?: string,
     public lastName?: string,
     public role: Role = Role.HABITANT,
-    public refreshToken?: string,
-    public refreshTokenExpiresAt?: Date,
+    public refreshToken?: string | null,
+    public refreshTokenExpiresAt?: Date | null,
   ) {}
 }

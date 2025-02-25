@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { UserRepositoryDomain } from '../../domain/repositories/user.repository';
 import { LoginUserDto, RegisterUserDto, UserResponseDto } from '../dtos/user.dto';
 import * as bcrypt from 'bcrypt';
@@ -47,6 +47,14 @@ export class UserService {
     throw new UnauthorizedException('Invalid credentials')
     }
     return user;
+  }
+
+  async updateRefreshToken(userId: number, refreshToken: string): Promise<void> {
+    const user = await this.userRepository.findById(userId);
+    if (!user) throw new NotFoundException('Invalid credentials');
+
+    user.refreshToken = refreshToken;
+    await this.userRepository.save(user.id, user);
   }
 
   private toResponseDto(user: UserEntity): UserResponseDto {

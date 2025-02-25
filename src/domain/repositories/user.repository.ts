@@ -8,4 +8,5 @@ export abstract class UserRepositoryDomain {
   abstract update(id: number, updates: Partial<UserEntity>): Promise<UserEntity>;
   abstract delete(id: number): Promise<string>;
   abstract updateRefreshToken(id: number, refreshToken: string, expiresAt: Date): Promise<void>;
+  abstract save(id: number, updates: Partial<UserEntity>): Promise<void>;
 }

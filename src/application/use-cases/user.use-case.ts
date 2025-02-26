@@ -10,9 +10,19 @@ export class UserUseCases {
 
   async findUserById(id: number): Promise<UserEntity | null> {
     try {
-      return await this.userService.findUserById(id);
+      return await this.userService.getUserById(id);
     } catch (error) {
       throw new UnauthorizedException('Failed to findUserById')
     }
   }
+
+  async findAllUsers(): Promise<UserEntity[]> {
+    try {
+      const users = await this.userService.getAllUsers()
+      return users as UserEntity[]
+    } catch (error) {
+      throw new UnauthorizedException('Failed to findAllUsers')
+    }
+  }
+
 }

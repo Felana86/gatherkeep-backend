@@ -3,12 +3,12 @@ import { Role } from './role.enum'
 export class UserEntity {
   constructor(
     public readonly id: number,
-    public email: string,
-    public password: string,
-    public firstName?: string,
-    public lastName?: string,
-    public role: Role = Role.HABITANT,
+    public readonly email: string,
+    public readonly password: string,
+    public readonly firstName?: string,
+    public readonly lastName?: string,
+    public readonly role: Role = Role.HABITANT,
     public refreshToken?: string | null,
-    public refreshTokenExpiresAt?: Date | null,
+    public  refreshTokenExpiresAt?: Date | null,
   ) {}
 }

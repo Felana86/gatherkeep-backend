@@ -1,12 +1,15 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { UserRepositoryDomain } from '../../domain/repositories/user.repository';
 import { LoginUserDto, RegisterUserDto, UserResponseDto } from '../dtos/user.dto';
 import * as bcrypt from 'bcrypt';
 import { UserEntity } from '../../domain/entities/user.entity';
+import { USER_REPOSITORY } from '../../domain/repositories/user-repository.token';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly userRepository: UserRepositoryDomain) {}
+  constructor(
+    @Inject(USER_REPOSITORY)
+    private readonly  userRepository: UserRepositoryDomain) {}
 
   async registerUser(dto: RegisterUserDto): Promise<UserResponseDto> {
     try {
@@ -27,17 +30,21 @@ export class UserService {
     }
   }
 
-  async findUserByEmail(email: string): Promise<UserEntity | null> {
+  async getUserByEmail(email: string): Promise<UserEntity | null> {
     return await this.userRepository.findByEmail(email);
   }
 
-  async findUserById(id: number): Promise<UserEntity | null> {
+  async getUserById(id: number): Promise<UserEntity | null> {
     return await this.userRepository.findById(id);
+  }
+
+  async getAllUsers() {
+    return this.userRepository.findAll()
   }
 
   async loginUser(dto: LoginUserDto): Promise<UserEntity> {
 
-    const user =await this.findUserByEmail(dto.email);
+    const user =await this.getUserByEmail(dto.email);
     if (!user) {
       throw new UnauthorizedException('Invalid credentials')
     }

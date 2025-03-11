@@ -1,16 +1,12 @@
-import { Role } from './role.enum'
-
 export class UserEntity {
-  constructor(
-    public readonly id: number,
-    public email: string,
-    public password: string,
-    public firstName?: string,
-    public lastName?: string,
-    public role: Role = Role.HABITANT,
-    public refreshToken?: string,
-    public refreshTokenExpiresAt?: Date,
-    public createdAt: Date = new Date(),
-    public updatedAt: Date = new Date(),
-  ) {}
+    constructor(
+        public readonly id: number,
+        public readonly email: string,
+        public readonly password: string,
+        public readonly firstName?: string,
+        public readonly lastName?: string,
+        public readonly role: 'HABITANT' | 'MEMBRE' | 'ASSOCIATION' = 'HABITANT',
+        public readonly refreshToken?: string,
+        public readonly refreshTokenSecret?: string,
+    ) {}
 }

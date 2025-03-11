@@ -1,5 +1,0 @@
-export enum Role {
-  HABITANT = 'HABITANT',
-  MEMBRE = 'MEMBRE',
-  ASSOCIATION = 'ASSOCIATION'
-}

@@ -1,2 +1,0 @@
-Ce dossier initialise les connexions aux bases de données (ex: Prisma, Mongoose, Redis, etc.).
-Cela permet de gérer proprement les connexions à la db, facilite la réutilisation dans toute l'application

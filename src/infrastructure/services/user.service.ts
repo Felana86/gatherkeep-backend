@@ -1,7 +1,7 @@
-import {Injectable} from "@nestjs/common";
-import {IUserRepository} from "../../core/domain/repositories/user.repository";
-import {UserEntity} from "../../core/domain/entities/user.entity";
-import * as bcrypt from "bcrypt";
+import { Injectable } from '@nestjs/common';
+import { IUserRepository } from '../../core/domain/repositories/user.repository';
+import { UserEntity } from '../../core/domain/entities/user.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -20,5 +20,13 @@ export class UserService {
 
     async findByEmail(email: string): Promise<UserEntity | null> {
         return this.userRepository.findByEmail(email)
+    }
+
+    async updateUser(id: number, refreshToken: string): Promise<UserEntity | null> {
+        return await this.userRepository.update(id, { refreshToken });
+    }
+
+    async findById(id: number): Promise<UserEntity | null> {
+        return this.userRepository.findById(id);
     }
 }

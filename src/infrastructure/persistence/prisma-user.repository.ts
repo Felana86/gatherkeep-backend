@@ -35,7 +35,7 @@ export class PrismaUserRepository implements IUserRepository {
             return this.prisma.user.findUniqueOrThrow({ where: { id } });
         }
 
-        async update(id: number, data: Partial<UserEntity>): Promise<UserEntity> {
+        async update(id: number, data: Partial<CreateUserDto>): Promise<UserEntity> {
             return this.prisma.user.update({ where: { id }, data });
         }
 

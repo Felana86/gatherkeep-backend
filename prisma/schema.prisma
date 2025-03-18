@@ -20,26 +20,25 @@ enum Role {
 }
 
 model User {
-  id                    Int           @id @default(autoincrement())
-  email                 String        @unique
-  password              String // Stocké en hashé avec bcrypt
-  firstName             String?
-  lastName              String?
-  role                  Role          @default(HABITANT)
-  refreshToken          String?
-  refreshTokenExpiresAt DateTime?
+  id               Int           @id @default(autoincrement())
+  email            String        @unique
+  password         String // Stocké en hashé avec bcrypt
+  firstName        String?
+  lastName         String?
+  role             Role?         @default(HABITANT)
+  refreshToken     String?
   // Relations
-  associations          Adhesion[]
-  publications          Publication[]
-  comments              Comment[]
-  votes                 Vote[]
-  messagesSent          Message[]     @relation("SentMessages")
-  messagesReceived      Message[]     @relation("ReceivedMessages")
-  userAgendas           UserAgenda[] // Relation vers UserAgenda
-  createdEvents         Event[]       @relation("EventCreator")
-  events                Event[]       @relation("UserEvents")
-  createdAt             DateTime      @default(now())
-  updatedAt             DateTime      @updatedAt
+  associations     Adhesion[]
+  publications     Publication[]
+  comments         Comment[]
+  votes            Vote[]
+  messagesSent     Message[]     @relation("SentMessages")
+  messagesReceived Message[]     @relation("ReceivedMessages")
+  userAgendas      UserAgenda[] // Relation vers UserAgenda
+  createdEvents    Event[]       @relation("EventCreator")
+  events           Event[]       @relation("UserEvents")
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
 }
 
 model Association {

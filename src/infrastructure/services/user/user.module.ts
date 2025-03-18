@@ -1,8 +1,8 @@
 import {Module} from "@nestjs/common";
-import {PrismaModule} from "../persistence/prisma.module";
-import {UserController} from "../controllers/user.controller";
-import {UserService} from "../services/user.service";
-import {PrismaUserRepository} from "../persistence/prisma-user.repository";
+import { UserService } from './user.service';
+import { PrismaModule } from '../../persistence/prisma.module';
+import { UserController } from '../../controllers/user.controller';
+import { PrismaUserRepository } from '../../persistence/prisma-user.repository';
 
 @Module({
     imports: [PrismaModule], // import du module Prisma pour accéder à la BDD

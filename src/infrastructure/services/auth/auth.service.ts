@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UserService } from './user.service';
 import { JwtService } from '@nestjs/jwt';
-import { UserEntity } from '../../core/domain/entities/user.entity';
 import * as bcrypt from 'bcrypt';
+import { UserService } from '../user/user.service';
+import { UserEntity } from '../../../core/domain/entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -17,8 +17,8 @@ export class AuthService {
         if (!user) {
             throw new UnauthorizedException();
         }
-        const isPassworldValid = await bcrypt.compare(password, user.password);
-        if (!isPassworldValid) {
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
             throw new UnauthorizedException();
         }
         return user;
@@ -36,7 +36,7 @@ export class AuthService {
         return { accessToken, refreshToken };
     }
 
-    //vérifie le refres token et génère un nouveau access et refresh
+    //vérifie le refresh token et génère un nouveau access et refresh
     async refreshToken(oldRefreshToken: string) {
         try {
             const decoded = this.jwtService.verify(oldRefreshToken);

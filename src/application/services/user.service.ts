@@ -1,14 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { IUserRepository } from '../../../core/domain/repositories/user.repository';
-import { UserEntity } from '../../../core/domain/entities/user.entity';
-import { CreateUserDto } from '../../../core/domain/dtos/create-user.dto';
+import { IUserRepository } from '../../core/domain/repositories/IUserRepository';
+import { CreateUserDto } from '../../core/domain/dtos/create-user.dto';
+import { UserEntity } from '../../core/domain/entities/user.entity';
+
 
 @Injectable()
 export class UserService {
     constructor(private readonly userRepository: IUserRepository) {}
 
-    async createUser(createUserDto: CreateUserDto): Promise<UserEntity> {
+    async create(createUserDto: CreateUserDto): Promise<UserEntity> {
         const { password, ...data } = createUserDto;
         const hashedPassword = await bcrypt.hash(password, 12);
         return this.userRepository.create({
@@ -22,8 +23,8 @@ export class UserService {
         return this.userRepository.findByEmail(email)
     }
 
-    async updateUser(id: number, refreshToken: string): Promise<UserEntity | null> {
-        return await this.userRepository.update(id, { refreshToken });
+    async update(id: number, data: {refreshToken: string}): Promise<UserEntity | null> {
+        return await this.userRepository.update(id, data );
     }
 
     async findById(id: number): Promise<UserEntity | null> {
